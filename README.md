@@ -35,4 +35,11 @@ Detta kommer vi göra fritt men jag har med tips på en arbetsordning samt länk
 
 
 ## Projekt
+I detta miniprojekt ska du (och en partner) bestämma vad ni ska skapa för databas. Det kan vara rörande fotboll, böcker, snabbmatchskedjor eller vad som helst.
+För projektet har ni fem timmar till ert förfogande och er uppgift är delad i två, först skapa en bra databaskarta, sedan bygga den i postgressql.
+
+Ni följer instruktionerna och arbetssättet vi implementerat hittils.
+
+
+
 
