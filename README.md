@@ -41,5 +41,17 @@ För projektet har ni fem timmar till ert förfogande och er uppgift är delad i
 Ni följer instruktionerna och arbetssättet vi implementerat hittils.
 
 
+### API
+Det finns ett exemple api delat i undermappen API. Där är allt kopplat till exempeldatabasen som är inriktad på paddel. 
+Ladda ner API mappen, ändra den till dina egna tabelller. Skapa en fil som heter .env där i lägger du information för att ansluta till din databas, den ska se ut som nedan, fast med din information såklart:
+
+```` 
+POSTGRESQL_DB_HOST = exmp.c1acms328w62.us-east-1.rds.amazonaws.com
+POSTGRESQL_DB_USER = postgres
+POSTGRESQL_DB_PASSWORD = password
+POSTGRESQL_DB = database
+```` 
+    
+
 
 
