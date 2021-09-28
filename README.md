@@ -51,7 +51,14 @@ POSTGRESQL_DB_USER = postgres
 POSTGRESQL_DB_PASSWORD = password
 POSTGRESQL_DB = database
 ```` 
-    
+
+För att starta:
+1. Starta cmd i din önskade destinationsmapp, skriv "git clone https://github.com/abbjoafli/AWS-PostgreSQL-instruktioner.git " 
+2.  fortsätt i cmd genom att skriva "cd AWS-PostgreSQL-instruktioner/API"
+3.  fortsätt med att installera biblioteken som används genom att skriva "npm install"
+4.  kör nu programmet genom att skriva "npm run dev"
+
+
 
 
 
