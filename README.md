@@ -58,7 +58,35 @@ För att starta:
 3.  fortsätt med att installera biblioteken som används genom att skriva "npm install"
 4.  kör nu programmet genom att skriva "npm run dev"
 
-
-
+### Skapa en frontend
+Frontenden får ni göra på det sätt ni tycker passar, det kan vara en mobilapp med Quasar, en SvelteApp eller att man använder den färdiga [Vue-grundemallen](https://github.com/abbjoafli/Vue_clean/tree/master/Vue_Clean) från min github. För att kunna skicka och ta emot anrop från API:et så rekomenderar jag att man använder [Axios](https://www.npmjs.com/package/axios).
+Nedan är ett exempel på ett Axiosanropp där vi anropar routen /players från localhost. Då hämtar vi alla spelae i min paddelexempeldatabas och skriver först ut all info sedan bara första personens info sedan bara första personens namn.
+```` 
+<template>
+  <v-container grid-list-md text-xs-center>
+    <v-flex xs12>
+      <v-layout row wrap>
+        {{ info }}
+        {{ info[1] }}
+ 
+        {{ info[1].name }}
+      </v-layout>
+    </v-flex>
+  </v-container>
+</template>
+ 
+<script>
+export default {
+  mounted() {
+    this.axios.get("http://localhost:3000/players").then((result) => {
+      this.info = result.data;
+    });
+  },
+ 
+  data: () => ({ info: "hej" }),
+};
+</script>
+ 
+```` 
 
 
