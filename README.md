@@ -44,7 +44,7 @@ Ni följer instruktionerna och arbetssättet vi implementerat hittils.
 ### API
 Det finns ett exemple api delat i undermappen API. Där är allt kopplat till exempeldatabasen som är inriktad på paddel. 
 Ladda ner API mappen, ändra den till dina egna tabelller. Skapa en fil som heter .env där i lägger du information för att ansluta till din databas, den ska se ut som nedan, fast med din information såklart:
-
+#### Installation
 ```` 
 POSTGRESQL_DB_HOST = exmp.c1acms328w62.us-east-1.rds.amazonaws.com
 POSTGRESQL_DB_USER = postgres
@@ -57,6 +57,42 @@ För att starta:
 2.  fortsätt i cmd genom att skriva "cd AWS-PostgreSQL-instruktioner/API"
 3.  fortsätt med att installera biblioteken som används genom att skriva "npm install"
 4.  kör nu programmet genom att skriva "npm run dev"
+
+#### Hur funkar det?
+Är servern igång och fungerar så skriver jag in följande url i min webläsare
+```` http://localhost:5000/players```` 
+
+Då ser jag följande information i min webbläsare
+
+```` {"message":"Hämtar alla värden","items":[{"id":"1","name":"Ove Andre","birthdate":"1992-02-09T23:00:00.000Z","points":12,"description":"Paddelkungen från kungsan!            ","team_id":"1"},{"id":"3","name":"Larry Page","birthdate":"1928-02-09T23:00:00.000Z","points":222,"description":"Paddelyra ! ","team_id":"2"},{"id":"4","name":"Kurt Ove","birthdate":"1992-02-08T23:00:00.000Z","points":56,"description":"Paddel med stort P!]}```` 
+##### Params
+Lägger jag till / fljt av id på mitt anrop så får jag endast den personen som har det idet, i exemplet nedan id 1.
+```` http://localhost:5000/players/1```` 
+
+Då ser jag följande information i min webbläsare. Detta kallas för params
+
+```` [{"id":"1","name":"Ove Andre","birthdate":"1992-02-09T23:00:00.000Z","points":12,"description":"Paddelkungen från kungsan!      ","team_id":"1"}]```` 
+##### Query
+I vissa fall vill jag skicka med mer information då använder man operatorn "?" för att förklara för datorn att det är en såkallad query som ska läggas till. Jag kan ha flera queries och då börjar alla utom första med &(och) följt av vad jag vill kalla queryn t.ex name eller age.
+
+```` http://localhost:5000/players/1?name='Leif Andre'&age=28 ```` 
+
+I exemplet ovan så skickar jag med queryn name med värdet 'Leif Andre' samt age med värdet 28. Anledningen att Leif Andre har '' runt sig är för det innehåller ett mellanrum, är det bara en sammanhängande text ex Leif så behövs inte ''. 
+_Viktigt! Tänk på att om ni ska skicka in 'Leif Andre' i till exempel en Postgressql query (anrop) så måste det göras om till "Leif Andre"_
+
+```` 
+params: 1 
+query:{ name: "'Leif Andre'", age: '28' }
+```` 
+
+##### body
+Om jag vill skicka in värden till API:et anväder jag när jag testar ett program som heter Postman eller verktyget ThunderClient i VScode. Där gör jag exakt som i webbläsaren och lägger in urlen nedan
+```` http://localhost:5000/players/ ```` 
+Har jag anropet inställt på GET (en dropdown i anslutning till där jag lägger in urlen) så hämtar den likt i del 1 alla spelare. Skulle jag ändra detta till POST, PATCH PUT eller DElETE så blir det en annan typ av anrop. I denna andra form av anrop så kan det i viss fall som till exempel delete räcka med att vi skickar in params /1 (id) för att veta att det är första id:et vi vill ta bort. Men använder vi Post (lägga till) eller Put/Patch (Lägg till/ändra) så vill vi ofta skicka med ytterliggare information. Detta går såklart att göra med queries som ovan men det finns två problem med det. 
+1. URL:en blir väldigt lång om vi ska ha query med name, age, country, city, pets...
+2. Datat som vi skickar med visas i urlfältet, ibland vill vi kanske inte berätta för användaren vad vi skickar med, t.ex känsliga uppgifter som idn på objekt eller mailadresser/nummer.
+Därför använder vi i många av dessa fall body istället. För att använda Body i Thunderclient så välj Body samt JSON i inställningarna och klistra in det du vill skicka med, i detta fall i JSON format.
+![alt text](https://i.ibb.co/sKxCDXB/SendPost.png "POST request")
 
 ### Skapa en frontend
 Frontenden får ni göra på det sätt ni tycker passar, det kan vara en mobilapp med Quasar, en SvelteApp eller att man använder den färdiga [Vue-grundemallen](https://github.com/abbjoafli/Vue_clean/tree/master/Vue_Clean) från min github. För att kunna skicka och ta emot anrop från API:et så rekomenderar jag att man använder [Axios](https://www.npmjs.com/package/axios).
@@ -78,7 +114,7 @@ Nedan är ett exempel på ett Axiosanropp där vi anropar routen /players från 
 <script>
 export default {
   mounted() {
-    this.axios.get("http://localhost:3000/players").then((result) => {
+    this.axios.get("http://localhost:5000/players").then((result) => {
       this.info = result.data;
     });
   },
